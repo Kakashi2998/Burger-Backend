@@ -38,6 +38,20 @@ public class OrderedBurger {
     @Column(name = "price")
     private float price;
 
+    @Column(name = "onions")
+    private int onions;
+
+    @Column(name = "tomatoes")
+    private int tomatoes;
+
+    @Column(name = "mushrooms")
+    private int mushrooms;
+
+    @Column(name = "egg")
+    private int egg;
+
+    @Column(name = "mayonaise")
+    private int mayonaise;
     @ManyToOne
     @JoinColumn(name = "orderid")
     @JsonIgnore
@@ -58,6 +72,11 @@ public class OrderedBurger {
                 ", chicken=" + chicken +
                 ", alootikki=" + alootikki +
                 ", price=" + price +
+                ", onions=" + onions +
+                ", tomatoes=" + tomatoes +
+                ", mushrooms=" + mushrooms +
+                ", egg=" + egg +
+                ", mayonaise=" + mayonaise +
                 ", order=" + order +
                 '}';
     }
