@@ -12,19 +12,16 @@ import java.util.List;
 @Table(name = "user")
 public class User {
 
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int Id;
+    private String Id;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "email")
     private String email;
-
-    @Column(name = "imageurl")
-    private String imageUrl;
 
     @OneToMany(mappedBy = "user")
 //    @JsonIgnore
@@ -38,13 +35,21 @@ public class User {
         order.setUser(this);
     }
 
+    public User() {
+    }
+
+    public User(String id, String name, String email) {
+        this.Id = id;
+        this.name = name;
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "Id=" + Id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
                 ", orders=" + orders +
                 '}';
     }

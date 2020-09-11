@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 @RestController
 @RequestMapping("/orders")
 @CrossOrigin
@@ -23,8 +26,9 @@ public class OrderController {
     @Autowired
     private OrderedBurgerDAO orderedBurgerDAO;
 
-    @PostMapping("/{userId}/order")
-    private ResponseEntity<String> order(@PathVariable int userId, @RequestBody Order order){
+    @PostMapping("/post")
+    private ResponseEntity<String> order(@RequestBody Order order, HttpServletRequest httpServletRequest){
+        String userId = (String)httpServletRequest.getAttribute("userId");
         User user = userDAO.getOne(userId);
         user.addOrder(order);
         orderDAO.save(order);
@@ -33,5 +37,11 @@ public class OrderController {
             orderedBurgerDAO.save(orderedBurger);
         });
         return ResponseEntity.ok("Order successfully taken!");
+    }
+
+    @GetMapping("/get")
+    public List<Order> getOrders(HttpServletRequest httpServletRequest){
+        String userId = (String)httpServletRequest.getAttribute("userId");
+        return userDAO.findById(userId).get().getOrders();
     }
 }
